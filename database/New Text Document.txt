@@ -1,0 +1,18 @@
+database name : establishment_section
+
+admin Panel
+Username: admin
+password: Password@123
+
+
+hod panel
+username : ram
+password: Password@123
+
+principal panel
+username: sham
+password: Password@123
+
+staff panel
+email: aaditya@gmail.com
+password :123
