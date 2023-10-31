@@ -77,7 +77,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
             <div class="sidebar-menu">
                 <div class="sidebar-header">
                     <div class="logo">
-                        <a href="leave.php"><img src="../assets/images/icon/logo.png" alt="logo"></a>
+                        <a href="leave.php"><img src="../assets/images/icon/logo_w.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="main-menu">
@@ -85,7 +85,12 @@ if (strlen($_SESSION['emplogin']) == 0) {
                         <nav>
                             <ul class="metismenu" id="menu">
 
-                                <li class="active">
+                                <li class="#">
+                                    <a href="dashboard.php" aria-expanded="true"><i class="ti-user"></i><span>profile
+                                        </span></a>
+                                </li>
+
+                                <li class="#">
                                     <a href="leave.php" aria-expanded="true"><i class="ti-user"></i><span>Apply Leave
                                         </span></a>
                                 </li>
