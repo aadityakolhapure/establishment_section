@@ -29,6 +29,8 @@ Database:
 ![Screenshot 2023-11-21 150305](https://github.com/aadityakolhapure/establishment_section/assets/122794685/1e8600a8-dcdb-47a5-a4a8-2db3c10dc548)
 2. Staff login Page.\
 ![Screenshot 2023-11-21 150152](https://github.com/aadityakolhapure/establishment_section/assets/122794685/8eb2e903-7ec4-4d53-b64b-588f379c97b2)
+3. Amin page which shows number of staff in organization, pending leave application ,all leave history
+![Screenshot (129)](https://github.com/aadityakolhapure/establishment_section/assets/122794685/1917024b-eda9-47ef-9635-847765b012ec)
 
 
 
