@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2023 at 06:03 PM
+-- Generation Time: Nov 16, 2023 at 06:02 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -151,10 +151,20 @@ CREATE TABLE `tblemployees` (
   `Dob` varchar(100) NOT NULL,
   `Department` varchar(255) NOT NULL,
   `Address` varchar(255) NOT NULL,
-  `City` varchar(200) NOT NULL,
-  `Country` varchar(150) NOT NULL,
   `Phonenumber` char(11) NOT NULL,
-  `user_type` enum('staff','hod','principal') NOT NULL,
+  `religion` varchar(255) NOT NULL,
+  `caste` varchar(255) NOT NULL,
+  `subcaste` varchar(255) NOT NULL,
+  `aadhar` varchar(255) NOT NULL,
+  `pan` varchar(255) NOT NULL,
+  `ssc` varchar(25) NOT NULL,
+  `hsc` varchar(255) NOT NULL,
+  `grad` varchar(255) NOT NULL,
+  `phd` varchar(255) NOT NULL,
+  `publish` varchar(255) NOT NULL,
+  `journal` varchar(255) NOT NULL,
+  `patent` varchar(255) NOT NULL,
+  `award` varchar(255) NOT NULL,
   `Status` int(1) NOT NULL,
   `RegDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -163,17 +173,17 @@ CREATE TABLE `tblemployees` (
 -- Dumping data for table `tblemployees`
 --
 
-INSERT INTO `tblemployees` (`id`, `EmpId`, `FirstName`, `LastName`, `EmailId`, `Password`, `Gender`, `Dob`, `Department`, `Address`, `City`, `Country`, `Phonenumber`, `user_type`, `Status`, `RegDate`) VALUES
-(1, 'ASTR001245', 'Johnny', 'Scott', 'johnny@mail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Male', '1996-06-12', 'Information Technology', '49 Arron Smith Drive', 'Honolulu', 'US', '7854785477', 'staff', 1, '2020-11-10 11:29:59'),
-(2, 'ASTR001369', 'Milton', 'Doe', 'milt@mail.com', 'f925916e2754e5e03f75dd58a5733251', 'Male', '1990-02-02', 'Operations', '15 Kincheloe Road', 'Salem', 'US', '8587944255', 'staff', 1, '2020-11-10 13:40:02'),
-(3, 'ASTR004699', 'Shawn', 'Den', 'Shawnden@mail.com', '3b87c97d15e8eb11e51aa25e9a5770e9', 'Male', '1995-03-22', 'Human Resource', '239 Desert Court', 'Wayne', 'US', '7458887169', 'staff', 1, '2021-03-03 07:24:17'),
-(4, 'ASTR002996', 'Carol', 'Reed', 'carol@mail.com', '723e1489a45d2cbaefec82eee410abd5', 'Female', '1989-03-23', 'Volunteer', 'Demo Address', 'Demo City', 'Demo Country', '7854448550', 'staff', 1, '2021-03-03 10:44:13'),
-(5, 'ASTR001439', 'Danny', 'Wood', 'danny@mail.com', 'b7bee6b36bd35b773132d4e3a74c2bb5', 'Male', '1986-03-12', 'Research', '11 Rardin Drive', 'San Francisco', 'US', '4587777744', 'staff', 1, '2021-03-04 17:14:48'),
-(6, 'ASTR006946', 'Shawn', 'Martin', 'shawn@mail.com', 'a3cceba83235dc95f750108d22c14731', 'Male', '1992-08-28', 'Finance', '3259 Ray Court', 'Wilmington', 'US', '8520259670', 'staff', 1, '2021-03-04 17:46:02'),
-(7, 'ASTR000084', 'Jennifer', 'Foltz', 'jennifer@mail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Female', '1992-12-11', 'Marketing', '977 Smithfield Avenue', 'Elkins', 'US', '7401256696', 'staff', 1, '2022-02-09 15:29:00'),
-(8, 'ASTR012447', 'Will', 'Williams', 'williams@mail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Male', '1992-02-15', 'Research', '366 Cemetery Street', 'Houston', 'US', '7854000065', 'staff', 1, '2022-02-10 15:52:32'),
-(9, '43265472472', 'aakash', 'kolhapure', 'aakash@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Male', '2023-09-28', 'computer science', 'satara', 'satara', 'india', '8945561230', 'hod', 1, '2023-10-26 15:31:55'),
-(10, '1234567890', 'aaditya', 'kolhapure', 'aaditya@gmail.com', '202cb962ac59075b964b07152d234b70', 'Male', '2023-10-06', 'computer science', 'satara', 'satarea', 'india', '2323232323', 'staff', 1, '2023-10-26 16:21:21');
+INSERT INTO `tblemployees` (`id`, `EmpId`, `FirstName`, `LastName`, `EmailId`, `Password`, `Gender`, `Dob`, `Department`, `Address`, `Phonenumber`, `religion`, `caste`, `subcaste`, `aadhar`, `pan`, `ssc`, `hsc`, `grad`, `phd`, `publish`, `journal`, `patent`, `award`, `Status`, `RegDate`) VALUES
+(1, 'ASTR001245', 'Johnny', 'Scott', 'johnny@mail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Male', '1996-06-12', 'Information Technology', '49 Arron Smith Drive', '7854785477', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2020-11-10 11:29:59'),
+(2, 'ASTR001369', 'Milton', 'Doe', 'milt@mail.com', 'f925916e2754e5e03f75dd58a5733251', 'Male', '1990-02-02', 'Operations', '15 Kincheloe Road', '8587944255', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2020-11-10 13:40:02'),
+(3, 'ASTR004699', 'Shawn', 'Den', 'Shawnden@mail.com', '3b87c97d15e8eb11e51aa25e9a5770e9', 'Male', '1995-03-22', 'Human Resource', '239 Desert Court', '7458887169', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2021-03-03 07:24:17'),
+(4, 'ASTR002996', 'Carol', 'Reed', 'carol@mail.com', '723e1489a45d2cbaefec82eee410abd5', 'Female', '1989-03-23', 'Volunteer', 'Demo Address', '7854448550', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2021-03-03 10:44:13'),
+(5, 'ASTR001439', 'Danny', 'Wood', 'danny@mail.com', 'b7bee6b36bd35b773132d4e3a74c2bb5', 'Male', '1986-03-12', 'Research', '11 Rardin Drive', '4587777744', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2021-03-04 17:14:48'),
+(6, 'ASTR006946', 'Shawn', 'Martin', 'shawn@mail.com', 'a3cceba83235dc95f750108d22c14731', 'Male', '1992-08-28', 'Finance', '3259 Ray Court', '8520259670', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2021-03-04 17:46:02'),
+(7, 'ASTR000084', 'Jennifer', 'Foltz', 'jennifer@mail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Female', '1992-12-11', 'Marketing', '977 Smithfield Avenue', '7401256696', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2022-02-09 15:29:00'),
+(8, 'ASTR012447', 'Will', 'Williams', 'williams@mail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 'Male', '1992-02-15', 'Research', '366 Cemetery Street', '7854000065', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2022-02-10 15:52:32'),
+(9, '43265472472', 'aakash', 'kolhapure', 'aakash@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Male', '2023-09-28', 'computer science', 'satara', '8945561230', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2023-10-26 15:31:55'),
+(10, '1234567890', 'aaditya', 'kolhapure', 'aaditya@gmail.com', 'afab3e9707435d6b0888b566d7ad3ff8', 'Male', '2023-10-06', 'computer science', 'satara', '2323232323', '', '', '', '', '', '', '', '', '', '', '', '', '', 1, '2023-10-26 16:21:21');
 
 -- --------------------------------------------------------
 
@@ -216,10 +226,13 @@ INSERT INTO `tblleaves` (`id`, `LeaveType`, `ToDate`, `FromDate`, `Description`,
 (22, 'Medical Leave', '2023-10-27', '2023-10-29', 'hggudfgdfgfrhoio', '2023-10-27 14:57:05', 'kjdlh', '2023-10-27 20:38:17 ', 1, 1, 10),
 (23, 'Medical Leave', '2023-10-28', '2023-10-31', 'i was having  feaver.', '2023-10-27 15:29:00', 'do not take leave again', '2023-10-27 20:59:59 ', 1, 1, 9),
 (24, 'Medical Leave', '2020-03-29', '2020-03-30', 'kfghkfh', '2023-10-28 07:15:20', 'itouopf', '2023-10-28 12:47:05 ', 1, 1, 10),
-(25, 'Paternity Leave', '2020-03-05', '2020-03-05', 'fhgifi', '2023-10-28 07:27:29', NULL, NULL, 0, 1, 9),
+(25, 'Paternity Leave', '2020-03-05', '2020-03-05', 'fhgifi', '2023-10-28 07:27:29', 'n ', '2023-10-31 14:56:35 ', 1, 1, 9),
 (26, 'Religious Holidays', '2023-10-28', '2020-04-01', 'hsgfuyguir', '2023-10-28 08:49:00', 'gfjkhdkgd', '2023-10-28 14:20:38 ', 2, 1, 10),
 (27, 'Compensatory Leave', '2023-10-28', '2023-11-01', 'fjdgfgh', '2023-10-28 08:49:27', 'gsdfjfhs', '2023-10-28 14:20:25 ', 1, 1, 10),
-(28, 'Maternity Leave', '2023-10-28', '2023-11-11', 'jjsjk', '2023-10-28 09:06:36', 'kjsls', '2023-10-28 14:38:10 ', 1, 1, 10);
+(28, 'Maternity Leave', '2023-10-28', '2023-11-11', 'jjsjk', '2023-10-28 09:06:36', 'kjsls', '2023-10-28 14:38:10 ', 1, 1, 10),
+(29, 'Restricted Holiday', '2023-10-31', '2023-11-09', 'gfhgihiohj', '2023-10-31 07:36:51', 'hdksg', '2023-10-31 13:09:18 ', 1, 1, 10),
+(30, 'Medical Leave', '2023-11-08', '2023-11-10', 'ghfdfjgf', '2023-10-31 09:27:27', 'dgd', '2023-10-31 14:58:09 ', 1, 1, 10),
+(31, 'Casual Leave', '2020-03-05', '2020-03-05', 'kjscchs;cija/c\r\n', '2023-10-31 09:36:02', 'swarup\r\n', '2023-10-31 15:07:07 ', 1, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -334,7 +347,7 @@ ALTER TABLE `tblemployees`
 -- AUTO_INCREMENT for table `tblleaves`
 --
 ALTER TABLE `tblleaves`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tblleavetype`

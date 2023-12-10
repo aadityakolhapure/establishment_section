@@ -1,14 +1,3 @@
-<?php
-
-session_start();
-error_reporting(0);
-include('includes/dbconn.php');
-
-if (strlen($_SESSION['emplogin']) == 0) {
-    header('location:../index.php');
-} else {
-
-?>
 
     <!doctype html>
     <html class="no-js" lang="en">
@@ -60,9 +49,8 @@ if (strlen($_SESSION['emplogin']) == 0) {
                     <div class="menu-inner">
                         <nav>
                             <ul class="metismenu" id="menu">
-
                                 <li class="#">
-                                    <a href="dashboard.php" aria-expanded="true"><i class="ti-user"></i><span>profile
+                                    <a href="dashboard.php" aria-expanded="true"><i class="ti-user"></i><span>Profile
                                         </span></a>
                                 </li>
 
@@ -114,103 +102,46 @@ if (strlen($_SESSION['emplogin']) == 0) {
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="breadcrumbs-area clearfix">
-                                <h4 class="page-title pull-left">My Leave History</h4>
+                                <h4 class="page-title pull-left">My Profile</h4>
                             </div>
                         </div>
                         <div class="col-sm-6 clearfix">
-                            <?php include '../includes/employee-profile-section.php' ?>
+
+                          
+
                         </div>
                     </div>
                 </div>
                 <!-- page title area end -->
                 <div class="main-content-inner">
                     <div class="row">
-                        <!-- data table start -->
-                        <div class="col-12 mt-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title">Leave History Table</h4>
-                                    <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                        <div class="col-lg-6 col-ml-12">
+                            <div class="row">
+                                <!-- Textual inputs start -->
+                                <div class="col-12 mt-5">
+                                    <div class="card">
+                                        <form action="upload.php" method="post" enctype="multipart/form-data">
 
-                                        </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div><?php } ?>
-                                    <div class="data-tables">
-                                        <table id="dataTable" class="table table-hover progress-table text-center">
-                                            <thead class="bg-light text-capitalize">
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th width="150">Type</th>
-                                                    <th>Conditions</th>
-                                                    <th>From</th>
-                                                    <th>To</th>
-                                                    <th width="150">Applied</th>
-                                                    <th width="120">HOD's Remark</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $eid = $_SESSION['eid'];
-                                                $sql = "SELECT LeaveType,ToDate,FromDate,Description,PostingDate,AdminRemarkDate,AdminRemark,Status from tblleaves where empid=:eid";
-                                                $query = $dbh->prepare($sql);
-                                                $query->bindParam(':eid', $eid, PDO::PARAM_STR);
-                                                $query->execute();
-                                                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                                $cnt = 1;
-                                                if ($query->rowCount() > 0) {
-                                                    foreach ($results as $result) {  ?>
+                                            <div class="card-body">
+                                                <h4 class="header-title">Update My Profile</h4>
+                                                <p class="text-muted font-14 mb-4">Please make changes on the form below in order to update your profile</p>
+                                                <div class="form-group">
+                                                            <label for="example-text-input" class="col-form-label">First Name</label>
+                                                            <input class="form-control" name="my_image" type="file">
+                                                        </div>
 
-                                                        <tr>
-                                                            <td> <?php echo htmlentities($cnt); ?></td>
-                                                            <td><?php echo htmlentities($result->LeaveType); ?></td>
-                                                            <td><?php echo htmlentities($result->Description); ?></td>
-                                                            <td><?php echo htmlentities($result->FromDate); ?></td>
-                                                            <td><?php echo htmlentities($result->ToDate); ?></td>
-                                                            <td><?php echo htmlentities($result->PostingDate); ?></td>
-                                                            <td><?php if ($result->AdminRemark == "") {
-                                                                    echo htmlentities('Pending');
-                                                                } else {
 
-                                                                    echo htmlentities(($result->AdminRemark) . " " . "at" . " " . $result->AdminRemarkDate);
-                                                                }
+                                                
 
-                                                                ?>
-                                                            </td>
+                                                <button class="btn btn-primary" name="submit" type="submit" value="Upload">MAKE CHANGES</button>
 
-                                                            <td> <?php $stats = $result->Status;
-                                                                    if ($stats == 1) {
-                                                                    ?>
-                                                                    <span style="color: green">Approved</span>
-                                                                <?php }
-                                                                    if ($stats == 2) { ?>
-
-                                                                    <span style="color: red">Not Approved</span>
-                                                                <?php }
-                                                                    if ($stats == 0) { ?>
-
-                                                                    <span style="color: blue">Pending</span>
-                                                                <?php } ?>
-
-                                                            </td>
-                                                        </tr>
-
-                                                <?php $cnt++;
-                                                    }
-                                                } ?>
-
-                                            </tbody>
-                                        </table>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-                        <!-- data table end -->
                     </div>
                 </div>
             </div>
@@ -250,5 +181,3 @@ if (strlen($_SESSION['emplogin']) == 0) {
     </body>
 
     </html>
-
-<?php } ?>

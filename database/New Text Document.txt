@@ -15,4 +15,4 @@ password: Password@123
 
 staff panel
 email: aaditya@gmail.com
-password :123
+password :1234

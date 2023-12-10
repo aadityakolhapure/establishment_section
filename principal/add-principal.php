@@ -6,41 +6,24 @@ if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
     if (isset($_POST['add'])) {
-        $empid = $_POST['empcode'];
-        $fname = $_POST['firstName'];
-        $lname = $_POST['lastName'];
+        $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $password = md5($_POST['password']);
-        $gender = $_POST['gender'];
-        $dob = $_POST['dob'];
-        $department = $_POST['department'];
-        $address = $_POST['address'];
-        $city = $_POST['city'];
-        $country = $_POST['country'];
-        $mobileno = $_POST['mobileno'];
-        $user_type = $_POST['user_type'];
-        $status = 1;
+        $username = $_POST['username'];
 
-        $sql = "INSERT INTO tblemployees(EmpId,FirstName,LastName,EmailId,Password,Gender,Dob,Department,Address,City,Country,Phonenumber,user_type,Status) VALUES(:empid,:fname,:lname,:email,:password,:gender,:dob,:department,:address,:city,:country,:mobileno,:user_type,:status)";
+
+        $sql = "INSERT INTO principal(fullname,email,Password,UserName) VALUES(:fullname,:email,:password,:username)";
         $query = $dbh->prepare($sql);
-        $query->bindParam(':empid', $empid, PDO::PARAM_STR);
-        $query->bindParam(':fname', $fname, PDO::PARAM_STR);
-        $query->bindParam(':lname', $lname, PDO::PARAM_STR);
+
+        $query->bindParam(':fullname', $fullname, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':password', $password, PDO::PARAM_STR);
-        $query->bindParam(':gender', $gender, PDO::PARAM_STR);
-        $query->bindParam(':dob', $dob, PDO::PARAM_STR);
-        $query->bindParam(':department', $department, PDO::PARAM_STR);
-        $query->bindParam(':address', $address, PDO::PARAM_STR);
-        $query->bindParam(':city', $city, PDO::PARAM_STR);
-        $query->bindParam(':country', $country, PDO::PARAM_STR);
-        $query->bindParam(':mobileno', $mobileno, PDO::PARAM_STR);
-        $query->bindParam(':user_type', $user_type, PDO::PARAM_STR);
-        $query->bindParam(':status', $status, PDO::PARAM_STR);
+        $query->bindParam(':username', $username, PDO::PARAM_STR);
+
         $query->execute();
         $lastInsertId = $dbh->lastInsertId();
         if ($lastInsertId) {
-            $msg = "Record has been added Successfully";
+            $msg = "New admis has been added Successfully";
         } else {
             $error = "ERROR";
         }
@@ -54,7 +37,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Admin Panel - Staff Leave</title>
+        <title>Admin Panel - staff Leave</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="../assets/images/icon/favicon.ico">
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -136,8 +119,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <div class="main-menu">
                     <div class="menu-inner">
                         <?php
-                        $page = 'employee';
-                        include '../includes/admin-sidebar.php';
+                        $page = 'manage-admin';
+                        include '../includes/principal-sidebar.php';
                         ?>
                     </div>
                 </div>
@@ -176,9 +159,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="breadcrumbs-area clearfix">
-                                <h4 class="page-title pull-left">Add Staff Section</h4>
+                                <h4 class="page-title pull-left">Add Principal Section</h4>
                                 <ul class="breadcrumbs pull-left">
-                                    <li><a href="employees.php">Staff</a></li>
+                                    <li><a href="manage-principal.php">Manage Principal</a></li>
                                     <li><span>Add</span></li>
 
                                 </ul>
@@ -188,7 +171,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <div class="col-sm-6 clearfix">
                             <div class="user-profile pull-right">
                                 <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">ADMIN <i class="fa fa-angle-down"></i></h4>
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Principal <i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="logout.php">Log Out</a>
                                 </div>
@@ -220,92 +203,26 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <form name="addemp" method="POST">
 
                                             <div class="card-body">
-                                                <p class="text-muted font-14 mb-4">Please fill up the form in order to add Staff records</p>
-
-                                                <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">Staff ID</label>
-                                                    <input class="form-control" name="empcode" type="text" autocomplete="off" required id="empcode" onBlur="checkAvailabilityEmpid()">
-                                                </div>
+                                                <p class="text-muted font-14 mb-4">Please fill up the form in order to add new system aPrincipal</p>
 
 
                                                 <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">First Name</label>
-                                                    <input class="form-control" name="firstName" type="text" required id="example-text-input">
+                                                    <label for="example-text-input" class="col-form-label">Full Name</label>
+                                                    <input class="form-control" name="fullname" type="text" required id="example-text-input">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">Last Name</label>
-                                                    <input class="form-control" name="lastName" type="text" autocomplete="off" required id="example-text-input">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="example-email-input" class="col-form-label">Email</label>
+                                                    <label for="example-email-input" class="col-form-label">Email ID</label>
                                                     <input class="form-control" name="email" type="email" autocomplete="off" required id="example-email-input">
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label class="col-form-label">Preferred Department</label>
-                                                    <select class="custom-select" name="department" autocomplete="off">
-                                                        <option value="">Choose..</option>
-                                                        <?php $sql = "SELECT DepartmentName from tbldepartments";
-                                                        $query = $dbh->prepare($sql);
-                                                        $query->execute();
-                                                        $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                                        $cnt = 1;
-                                                        if ($query->rowCount() > 0) {
-                                                            foreach ($results as $result) {   ?>
-                                                                <option value="<?php echo htmlentities($result->DepartmentName); ?>"><?php echo htmlentities($result->DepartmentName); ?></option>
-                                                        <?php }
-                                                        } ?>
-                                                    </select>
-                                                </div>
 
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Gender</label>
-                                                    <select class="custom-select" name="gender" autocomplete="off">
-                                                        <option value="">Choose..</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                        <option value="Other">Other</option>
-                                                    </select>
+                                                    <label for="example-text-input" class="col-form-label">Username</label>
+                                                    <input class="form-control" name="username" type="text" autocomplete="off" required id="example-text-input">
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="example-date-input" class="col-form-label">D.O.B</label>
-                                                    <input class="form-control" type="date" name="dob" id="birthdate">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">Contact Number</label>
-                                                    <input class="form-control" name="mobileno" type="tel" maxlength="10" autocomplete="off" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">User type</label>
-                                                    <select class="custom-select" name="user_type" autocomplete="off">
-                                                        <option value="staff">Staff</option>
-                                                        <option value="HOD">HOD</option>
-                                                        <option value="Principal">Principal</option>
-                                                    </select>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">Country</label>
-                                                    <input class="form-control" name="country" type="text" autocomplete="off" required id="example-text-input">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">Address</label>
-                                                    <input class="form-control" name="address" type="text" autocomplete="off" required>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="example-text-input" class="col-form-label">City</label>
-                                                    <input class="form-control" name="city" type="text" autocomplete="off" required>
-                                                </div>
-
-                                                <h4>Set Password for Staff Login</h4>
+                                                <h4>Setting Passwords</h4>
 
                                                 <div class="form-group">
                                                     <label for="example-text-input" class="col-form-label">Password</label>
@@ -343,6 +260,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
         </div>
+
         <!-- jquery latest version -->
         <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
         <!-- bootstrap 4 js -->

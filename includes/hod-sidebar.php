@@ -24,7 +24,7 @@
 
         <li class="<?php if ($page == 'manage-admin') {
                         echo 'active';
-                    } ?>"><a href="manage-admin.php"><i class="fa fa-lock"></i> <span>Manage Admin</span></a></li>
+                    } ?>"><a href="manage-admin.php"><i class="fa fa-lock"></i> <span>Manage HOD</span></a></li>
 
     </ul>
 </nav>

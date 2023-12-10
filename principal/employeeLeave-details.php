@@ -79,7 +79,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <div class="main-menu">
                     <div class="menu-inner">
                         <?php $page = "employee";
-                        include '../includes/admin-sidebar.php'
+                        include '../includes/principal-sidebar.php'
                         ?>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <div class="col-sm-6 clearfix">
                             <div class="user-profile pull-right">
                                 <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">ADMIN <i class="fa fa-angle-down"></i></h4>
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Principal <i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="logout.php">Log Out</a>
                                 </div>
@@ -238,7 +238,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             </tr>
 
                                                             <tr>
-                                                                <td><b>Admin Remark: </b></td>
+                                                                <td><b>Principal Remark: </b></td>
                                                                 <td colspan="12"><?php
                                                                                     if ($result->AdminRemark == "") {
                                                                                         echo "Waiting for Action";
@@ -249,7 +249,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             </tr>
 
                                                             <tr>
-                                                                <td><b>Admin Action On: </b></td>
+                                                                <td><b>Principal Action On: </b></td>
                                                                 <td><?php
                                                                     if ($result->AdminRemarkDate == "") {
                                                                         echo "NA";
@@ -266,6 +266,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             ?>
                                                                 <tr>
                                                                     <td colspan="12">
+                                                                        <!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">SET ACTION</button> -->
+
                                                                         <!-- Modal -->
                                                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                             <div class="modal-dialog" role="document">

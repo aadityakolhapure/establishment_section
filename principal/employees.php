@@ -1,13 +1,34 @@
 <?php
-
 session_start();
 error_reporting(0);
-include('includes/dbconn.php');
-
-if (strlen($_SESSION['emplogin']) == 0) {
-    header('location:../index.php');
+include('../includes/dbconn.php');
+if (strlen($_SESSION['alogin']) == 0) {
+    header('location:index.php');
 } else {
 
+    //Inactive  Employee    
+    if (isset($_GET['inid'])) {
+        $id = $_GET['inid'];
+        $status = 0;
+        $sql = "UPDATE tblemployees set Status=:status  WHERE id=:id";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_STR);
+        $query->bindParam(':status', $status, PDO::PARAM_STR);
+        $query->execute();
+        header('location:employees.php');
+    }
+
+    //Activated Employee
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $status = 1;
+        $sql = "UPDATE tblemployees set Status=:status  WHERE id=:id";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_STR);
+        $query->bindParam(':status', $status, PDO::PARAM_STR);
+        $query->execute();
+        header('location:employees.php');
+    }
 ?>
 
     <!doctype html>
@@ -16,7 +37,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Employee Leave Management System</title>
+        <title>Admin Panel - Staff Leave</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="../assets/images/icon/favicon.ico">
         <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -47,37 +68,21 @@ if (strlen($_SESSION['emplogin']) == 0) {
             <div class="loader"></div>
         </div>
         <!-- preloader area end -->
-        <!-- page container area start -->
+
         <div class="page-container">
             <!-- sidebar menu area start -->
             <div class="sidebar-menu">
                 <div class="sidebar-header">
                     <div class="logo">
-                        <a href="leave.php"><img src="../assets/images/icon/logo_w.png" alt="logo"></a>
+                        <a href="dashboard.php"><img src="../assets/images/icon/logo_w.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="main-menu">
                     <div class="menu-inner">
-                        <nav>
-                            <ul class="metismenu" id="menu">
-
-                                <li class="#">
-                                    <a href="dashboard.php" aria-expanded="true"><i class="ti-user"></i><span>profile
-                                        </span></a>
-                                </li>
-
-                                <li class="#">
-                                    <a href="leave.php" aria-expanded="true"><i class="ti-user"></i><span>Apply Leave
-                                        </span></a>
-                                </li>
-
-                                <li class="#">
-                                    <a href="leave-history.php" aria-expanded="true"><i class="ti-agenda"></i><span>View My Leave History
-                                        </span></a>
-                                </li>
-
-                            </ul>
-                        </nav>
+                        <?php
+                        $page = 'employee';
+                        include '../includes/principal-sidebar.php';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -102,7 +107,8 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                 <li id="full-view"><i class="ti-fullscreen"></i></li>
                                 <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
 
-
+                                <!-- Notification bell -->
+                                <?php include '../includes/admin-notification.php' ?>
 
                             </ul>
                         </div>
@@ -114,92 +120,96 @@ if (strlen($_SESSION['emplogin']) == 0) {
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <div class="breadcrumbs-area clearfix">
-                                <h4 class="page-title pull-left">My Leave History</h4>
+                                <h4 class="page-title pull-left">Staff Section</h4>
+                                <ul class="breadcrumbs pull-left">
+                                    <li><a href="dashboard.php">Home</a></li>
+                                    <li><span>Staff Management</span></li>
+
+                                </ul>
                             </div>
                         </div>
+
                         <div class="col-sm-6 clearfix">
-                            <?php include '../includes/employee-profile-section.php' ?>
+                            <div class="user-profile pull-right">
+                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Principal <i class="fa fa-angle-down"></i></h4>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="logout.php">Log Out</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- page title area end -->
                 <div class="main-content-inner">
-                    <div class="row">
-                        <!-- data table start -->
-                        <div class="col-12 mt-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title">Leave History Table</h4>
-                                    <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
 
-                                        </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div><?php } ?>
-                                    <div class="data-tables">
-                                        <table id="dataTable" class="table table-hover progress-table text-center">
-                                            <thead class="bg-light text-capitalize">
+
+                    <!-- row area start -->
+                    <div class="row">
+                        <!-- Dark table start -->
+                        <div class="col-12 mt-5">
+
+                            <div class="card">
+
+
+                                <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+
+                                    </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div><?php } ?>
+
+                                <div class="card-body">
+                                    <div class="data-tables datatable-dark">
+                                        <table id="dataTable3" class="table table-hover table-striped text-center">
+                                            <thead class="text-capitalize">
                                                 <tr>
                                                     <th>#</th>
-                                                    <th width="150">Type</th>
-                                                    <th>Conditions</th>
-                                                    <th>From</th>
-                                                    <th>To</th>
-                                                    <th width="150">Applied</th>
-                                                    <th width="120">HOD's Remark</th>
+                                                    <th>Name</th>
+                                                    <th>Staff ID</th>
+                                                    <th>Department</th>
+                                                    <th>Joined On</th>
                                                     <th>Status</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                 <?php
-                                                $eid = $_SESSION['eid'];
-                                                $sql = "SELECT LeaveType,ToDate,FromDate,Description,PostingDate,AdminRemarkDate,AdminRemark,Status from tblleaves where empid=:eid";
+                                                $sql = "SELECT EmpId,FirstName,LastName,Department,Status,RegDate,id from  tblemployees";
                                                 $query = $dbh->prepare($sql);
-                                                $query->bindParam(':eid', $eid, PDO::PARAM_STR);
                                                 $query->execute();
                                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                                 $cnt = 1;
                                                 if ($query->rowCount() > 0) {
-                                                    foreach ($results as $result) {  ?>
-
+                                                    foreach ($results as $result) {               ?>
                                                         <tr>
                                                             <td> <?php echo htmlentities($cnt); ?></td>
-                                                            <td><?php echo htmlentities($result->LeaveType); ?></td>
-                                                            <td><?php echo htmlentities($result->Description); ?></td>
-                                                            <td><?php echo htmlentities($result->FromDate); ?></td>
-                                                            <td><?php echo htmlentities($result->ToDate); ?></td>
-                                                            <td><?php echo htmlentities($result->PostingDate); ?></td>
-                                                            <td><?php if ($result->AdminRemark == "") {
-                                                                    echo htmlentities('Pending');
-                                                                } else {
 
-                                                                    echo htmlentities(($result->AdminRemark) . " " . "at" . " " . $result->AdminRemarkDate);
-                                                                }
+                                                            <td><?php echo htmlentities($result->FirstName); ?>&nbsp;<?php echo htmlentities($result->LastName); ?></td>
 
+                                                            <td><?php echo htmlentities($result->EmpId); ?></td>
+
+                                                            <td><?php echo htmlentities($result->Department); ?></td>
+
+                                                            <td><?php echo htmlentities($result->RegDate); ?></td>
+
+                                                            <td><?php $stats = $result->Status;
+                                                                if ($stats) {
                                                                 ?>
-                                                            </td>
-
-                                                            <td> <?php $stats = $result->Status;
-                                                                    if ($stats == 1) {
-                                                                    ?>
-                                                                    <span style="color: green">Approved</span>
-                                                                <?php }
-                                                                    if ($stats == 2) { ?>
-
-                                                                    <span style="color: red">Not Approved</span>
-                                                                <?php }
-                                                                    if ($stats == 0) { ?>
-
-                                                                    <span style="color: blue">Pending</span>
+                                                                    <span class="badge badge-pill badge-success">Active</span>
+                                                                <?php } else { ?>
+                                                                    <span class="badge badge-pill badge-danger">Inactive</span>
                                                                 <?php } ?>
 
-                                                            </td>
-                                                        </tr>
 
+                                                            </td>
+                                                    
+                                                        </tr>
                                                 <?php $cnt++;
                                                     }
                                                 } ?>
@@ -210,23 +220,21 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                 </div>
                             </div>
                         </div>
-                        <!-- data table end -->
+                        <!-- Dark table end -->
+
                     </div>
+                    <!-- row area end -->
+
                 </div>
+                <!-- row area start-->
             </div>
-            <!-- main content area end -->
-            <!-- footer area start-->
             <?php include '../includes/footer.php' ?>
-            <!-- footer area end-->
         </div>
-        <!-- page container area end -->
-        <!-- offset area start -->
-        <div class="offset-area">
-            <div class="offset-close"><i class="ti-close"></i></div>
+        <!-- main content area end -->
 
 
+        <!-- footer area end-->
         </div>
-        <!-- offset area end -->
         <!-- jquery latest version -->
         <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
         <!-- bootstrap 4 js -->
@@ -236,6 +244,21 @@ if (strlen($_SESSION['emplogin']) == 0) {
         <script src="../assets/js/metisMenu.min.js"></script>
         <script src="../assets/js/jquery.slimscroll.min.js"></script>
         <script src="../assets/js/jquery.slicknav.min.js"></script>
+
+        <!-- start chart js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+        <!-- start highcharts js -->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <!-- start zingchart js -->
+        <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script>
+            zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+            ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+        </script>
+        <!-- all line chart activation -->
+        <script src="assets/js/line-chart.js"></script>
+        <!-- all pie chart -->
+        <script src="assets/js/pie-chart.js"></script>
 
         <!-- Start datatable js -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
