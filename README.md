@@ -25,7 +25,7 @@ Frame Work used:
 Database:
 1) MYSQL
 ## Screenshots
-1. Admin login and same for principal, HOD./
+1. Admin login and same for principal, HOD.\
 ![Screenshot 2023-11-21 150305](https://github.com/aadityakolhapure/establishment_section/assets/122794685/1e8600a8-dcdb-47a5-a4a8-2db3c10dc548)
 
 
